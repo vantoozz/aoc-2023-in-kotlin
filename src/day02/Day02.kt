@@ -33,7 +33,7 @@ fun main() {
         input.map { parseLine(it) }
             .map { it.second }
             .sumOf { takes ->
-                takes.fold(Triple(1,1,1)) { maximals, b: Take ->
+                takes.fold(Triple(1, 1, 1)) { maximals, b: Take ->
                     Triple(
                         max(maximals.first, b.red),
                         max(maximals.second, b.green),
@@ -73,9 +73,9 @@ data class Take(
                 }
                 .fold(Take(0, 0, 0)) { take, cubes ->
                     when (cubes.first) {
-                        "red" -> take.copy(red = take.red + cubes.second)
-                        "green" -> take.copy(green = take.green + cubes.second)
-                        "blue" -> take.copy(blue = take.blue + cubes.second)
+                        "red" -> take.copy(red = cubes.second)
+                        "green" -> take.copy(green = cubes.second)
+                        "blue" -> take.copy(blue = cubes.second)
                         else -> take
                     }
                 }
