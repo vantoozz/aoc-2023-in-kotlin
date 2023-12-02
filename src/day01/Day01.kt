@@ -1,3 +1,8 @@
+package day01
+
+import println
+import readInput
+
 fun main() {
 
     val digits = mapOf(
@@ -35,11 +40,11 @@ fun main() {
             part1(it)
         }
 
-    check(part1(readInput("Day01_test")) == 142)
-    check(part2(readInput("Day01_test2")) == 281)
-    check(part2(readInput("Day01_test3")) == 68)
+    check(part1(readInput("day01/test1")) == 142)
+    check(part2(readInput("day01/test2")) == 281)
+    check(part2(readInput("day01/test3")) == 68)
 
-    val input = readInput("Day01")
+    val input = readInput("day01/Day01")
 
     part1(input).println()
     part2(input).println()
