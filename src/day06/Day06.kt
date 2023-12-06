@@ -17,9 +17,12 @@ fun main() {
         }
 
     fun process(input: List<Result>) = input.map { result ->
-        (0..result.time).map { speed ->
-            speed * (result.time - speed)
-        }.count { it > result.distance }
+        (0..result.time).fold(0) { sum, speed ->
+            (speed * (result.time - speed)).let { distance ->
+                if (sum != 0 && distance < result.distance) return@fold sum
+                if (distance > result.distance) sum + 1 else sum
+            }
+        }
     }.fold(1) { acc, i ->
         acc * i
     }
