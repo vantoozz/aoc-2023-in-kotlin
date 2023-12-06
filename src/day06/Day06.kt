@@ -2,6 +2,9 @@ package day06
 
 import println
 import readInput
+import kotlin.math.ceil
+import kotlin.math.floor
+import kotlin.math.sqrt
 
 fun main() {
 
@@ -17,12 +20,15 @@ fun main() {
         }
 
     fun process(input: List<Result>) = input.map { result ->
-        (0..result.time).fold(0) { sum, speed ->
-            (speed * (result.time - speed)).let { distance ->
-                if (sum != 0 && distance < result.distance) return@fold sum
-                if (distance > result.distance) sum + 1 else sum
-            }
-        }
+        realRoots(-1, result.time, -result.distance)
+            ?.let {
+                Pair(floor(it.first).toLong(), ceil(it.second).toLong())
+            }?.let {
+                (it.second - it.first - 1) +
+                        if (result.isBetter(it.first)) 1 else 0 +
+                                if (result.isBetter(it.first)) 1 else 0
+            }?.toInt() ?: 0
+
     }.fold(1) { acc, i ->
         acc * i
     }
@@ -46,4 +52,18 @@ fun main() {
 class Result(
     val time: Long,
     val distance: Long,
-)
+) {
+    fun isBetter(speed: Long) =
+        (speed * (time - speed)) > distance
+}
+
+
+fun realRoots(a: Long, b: Long, c: Long) =
+    (b * b - 4 * a * c)
+        .takeIf { it >= 0 }
+        ?.toDouble()?.let { d ->
+            Pair(
+                (-b + sqrt(d)) / (2 * a),
+                (-b - sqrt(d)) / (2 * a)
+            )
+        }
