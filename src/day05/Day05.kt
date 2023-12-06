@@ -50,7 +50,6 @@ fun main() {
                 }
         )
 
-
     fun process(input: Input, seed: Long) = input.rangeMaps.fold(seed) { source, rangeMaps ->
         rangeMaps.firstOrNull { rangeMap ->
             source in (rangeMap.sourceStart..(rangeMap.sourceStart + rangeMap.length))

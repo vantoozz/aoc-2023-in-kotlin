@@ -23,7 +23,6 @@ fun main() {
                 }
             }.sum()
 
-
     check(part1(readInput("day04/test1")) == 13)
     check(part2(readInput("day04/test1")) == 30)
 
@@ -33,7 +32,6 @@ fun main() {
     part2(input).println()
 
 }
-
 
 data class Card(
     val winningNumbers: List<Int>,
@@ -57,7 +55,6 @@ data class Card(
                 }
     }
 }
-
 
 fun String.extractNumbers() =
     split(" ").filter { it.isNotBlank() }.map { it.toInt() }
