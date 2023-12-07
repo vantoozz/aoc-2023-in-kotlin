@@ -58,7 +58,7 @@ class Hand(private val cards: List<Card>) : Comparable<Hand> {
     }
 
     override fun toString(): String =
-        cards.joinToString(", ") { it.name }
+        cards.joinToString("|") { it.name }
 
     private val type: Type by lazy {
         when {
@@ -69,11 +69,14 @@ class Hand(private val cards: List<Card>) : Comparable<Hand> {
             isTwoPairs() -> Type.TWO_PAIRS
             isOnePair() -> Type.ONE_PAIR
             else -> Type.HIGH_CARD
+        }.also {
+            println("$this is $it")
         }
     }
 
-    private val jokersCount =
+    private val jokersCount by lazy {
         cards.count { it == Card.JOKER }
+    }
 
     private fun isFiveOfAKind(): Boolean =
         cards
@@ -115,20 +118,18 @@ class Hand(private val cards: List<Card>) : Comparable<Hand> {
             .values
             .any { it.size + jokersCount == 2 }
 
-    override fun compareTo(other: Hand): Int {
-        val typeComparison = type.compareTo(other.type)
-        if (typeComparison != 0) {
-            return typeComparison
-        }
-
-        return cards
-            .zip(other.cards)
-            .map { (card, otherCard) ->
-                card.compareTo(otherCard)
+    override fun compareTo(other: Hand): Int =
+        type.compareTo(other.type)
+            .takeUnless { it == 0 }
+            ?: run {
+                cards
+                    .zip(other.cards)
+                    .asSequence()
+                    .map { (card, otherCard) ->
+                        card.compareTo(otherCard)
+                    }
+                    .firstOrNull { it != 0 } ?: 0
             }
-            .firstOrNull { it != 0 }
-            ?: 0
-    }
 }
 
 enum class Type {
