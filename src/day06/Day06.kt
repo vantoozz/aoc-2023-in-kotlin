@@ -57,7 +57,6 @@ class Result(
         (speed * (time - speed)) > distance
 }
 
-
 fun realRoots(a: Long, b: Long, c: Long) =
     (b * b - 4 * a * c)
         .takeIf { it >= 0 }
