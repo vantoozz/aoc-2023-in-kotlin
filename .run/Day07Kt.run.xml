@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Day07Kt" type="JetRunConfigurationType">
+    <option name="MAIN_CLASS_NAME" value="day07.Day07Kt" />
+    <module name="aoc-2023-in-kotlin.main" />
+    <shortenClasspath name="NONE" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
